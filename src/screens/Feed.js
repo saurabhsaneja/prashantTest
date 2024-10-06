@@ -1,14 +1,17 @@
-import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native'
+import React, { useState } from 'react'
 import { currentUser, getFont, getUserImage } from '../helpers'
 import { AntDesign } from '../global/MyIcon'
 import useFeedStore from '../store/feedStore'
 import Header from '../components/Header'
 import useFollowingStore from '../store/followingStore'
+import { ImageSlider } from '@pembajak/react-native-image-slider-banner';
 
 const Feed = () => {
+  const { width, height } = useWindowDimensions()
   const { feedData, changeLike } = useFeedStore()
   const { followingData, updateFollowing } = useFollowingStore()
+  const [imgStyle] = useState({ width: width * 0.8, height: width * 0.8 })
   // console.log('feedData', feedData);
   const unFollow = (user) => {
     Alert.alert('Unfollow', 'Are you sure you want to unfollow?', [
@@ -27,7 +30,7 @@ const Feed = () => {
     )
   }
   const Item = ({ item }) => {
-    // console.log('item', item);
+    // console.log('item', item?.images);
     return (
       <View style={styles.item}>
         <View style={styles.topRow}>
@@ -45,6 +48,12 @@ const Feed = () => {
             </TouchableOpacity>
           </View>
         </View>
+        <ImageSlider
+          data={item?.images?.map(el => ({img: el}))}
+          autoPlay={true}
+          onItemChanged={(item) => console.log("item", item)}
+          closeIconColor="#fff"
+        />
       </View>
     )
   }
@@ -109,5 +118,11 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 30 / 2,
-  }
+  },
+  slide1: {
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: '#9DD6EB'
+  },
 })
