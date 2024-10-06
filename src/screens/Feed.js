@@ -1,13 +1,29 @@
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { getFont, getUserImage } from '../helpers'
 import { AntDesign } from '../global/MyIcon'
 import useFeedStore from '../store/feedStore'
 
 const Feed = () => {
-  const { feedData, changeLike } = useFeedStore()
+  const { feedData, changeLike, changeFollow } = useFeedStore()
   console.log('feedData', feedData);
   const Item = ({ item }) => {
+    const unFollow = (id) => {
+      Alert.alert('Unfollow', 'Are you sure you want to unfollow?', [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK', onPress: () => {
+            console.log('OK Pressed')
+            changeFollow(id)
+          }
+        }
+      ]
+      )
+    }
     console.log('item', item);
     return (
       <View style={styles.item}>
@@ -17,12 +33,15 @@ const Feed = () => {
           <AntDesign name={item.isLiked ? 'heart' : 'hearto'} color='black' size={20} />
         </TouchableOpacity>
         <Image source={{ uri: getUserImage(item?.userName) }} style={styles.avatar} />
+        <TouchableOpacity onPress={() => unFollow(item?.id)} >
+          <AntDesign name='check' color='black' size={20} />
+        </TouchableOpacity>
       </View>
     )
   }
   return (
     <FlatList
-      data={feedData}
+      data={feedData?.filter(el => el?.userName !== 'user1')?.filter(el => el?.isFollowing)}
       contentContainerStyle={styles.container}
       renderItem={({ item }) => <Item item={item} />}
       keyExtractor={(item, index) => index}

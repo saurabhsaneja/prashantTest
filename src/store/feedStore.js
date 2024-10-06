@@ -9,6 +9,7 @@ const useFeedStore = create((set) => ({
       desc: 'Descrption 1',
       isLiked: true,
       postDate: 'Oct 6, 2024',
+      isFollowing: true,
     },
     {
       id: '2',
@@ -17,6 +18,7 @@ const useFeedStore = create((set) => ({
       desc: 'Descrption 2',
       isLiked: false,
       postDate: 'Oct 6, 2024',
+      isFollowing: true,
     },
     {
       id: '3',
@@ -25,6 +27,7 @@ const useFeedStore = create((set) => ({
       desc: 'Descrption 1',
       isLiked: false,
       postDate: 'Oct 6, 2024',
+      isFollowing: true,
     },
     {
       id: '4',
@@ -33,6 +36,7 @@ const useFeedStore = create((set) => ({
       desc: 'Descrption 2',
       isLiked: false,
       postDate: 'Oct 6, 2024',
+      isFollowing: true,
     },
     // 
     {
@@ -42,6 +46,7 @@ const useFeedStore = create((set) => ({
       desc: 'Descrption 1',
       isLiked: false,
       postDate: 'Oct 6, 2024',
+      isFollowing: true,
     },
     {
       id: '6',
@@ -50,6 +55,7 @@ const useFeedStore = create((set) => ({
       desc: 'Descrption 2',
       isLiked: false,
       postDate: 'Oct 6, 2024',
+      isFollowing: true,
     },
   ],
   addToFeedData: (data) => set((state) => {
@@ -59,6 +65,14 @@ const useFeedStore = create((set) => ({
     console.log('id', id);
     let updatedData = [...state.feedData]
     updatedData = updatedData?.map(el => el?.id === id ? {...el, isLiked: !el?.isLiked} : el)
+    console.log('updatedData', updatedData[0]);
+    return { feedData: updatedData }
+  }),
+  changeFollow: (id) => set((state) => {
+    console.log('id', id);
+    let updatedData = [...state.feedData]
+    const userName = updatedData?.find(el => el?.id === id)?.userName
+    updatedData = updatedData?.map(el => el?.userName === userName ? {...el, isFollowing: !el?.isFollowing} : el)
     console.log('updatedData', updatedData[0]);
     return { feedData: updatedData }
   }),
