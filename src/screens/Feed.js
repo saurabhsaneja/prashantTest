@@ -3,48 +3,67 @@ import React from 'react'
 import { getFont, getUserImage } from '../helpers'
 import { AntDesign } from '../global/MyIcon'
 import useFeedStore from '../store/feedStore'
+import Header from '../components/Header'
+import useFollowingStore from '../store/followingStore'
+
+const currentUser = 'user1'
 
 const Feed = () => {
-  const { feedData, changeLike, changeFollow } = useFeedStore()
-  console.log('feedData', feedData);
-  const Item = ({ item }) => {
-    const unFollow = (id) => {
-      Alert.alert('Unfollow', 'Are you sure you want to unfollow?', [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {
-          text: 'OK', onPress: () => {
-            console.log('OK Pressed')
-            changeFollow(id)
-          }
+  const { feedData, changeLike } = useFeedStore()
+  const { followingData, updateFollowing } = useFollowingStore()
+  // console.log('feedData', feedData);
+  const unFollow = (user) => {
+    Alert.alert('Unfollow', 'Are you sure you want to unfollow?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'OK', onPress: () => {
+          console.log('OK Pressed')
+          updateFollowing({ [currentUser]: { [user]: true } })
         }
-      ]
-      )
-    }
-    console.log('item', item);
+      }
+    ]
+    )
+  }
+  const Item = ({ item }) => {
+    // console.log('item', item);
     return (
       <View style={styles.item}>
-        <Text style={styles.username}>{item.userName}</Text>
-        <Text style={styles.username}>{item.postDate}</Text>
-        <TouchableOpacity onPress={() => changeLike(item?.id)} >
-          <AntDesign name={item.isLiked ? 'heart' : 'hearto'} color='black' size={20} />
-        </TouchableOpacity>
-        <Image source={{ uri: getUserImage(item?.userName) }} style={styles.avatar} />
-        <TouchableOpacity onPress={() => unFollow(item?.id)} >
-          <AntDesign name='check' color='black' size={20} />
-        </TouchableOpacity>
+        <View style={styles.topRow}>
+          <View style={styles.topLeftRow}>
+            <Image source={{ uri: getUserImage(item?.userName) }} style={styles.avatar} />
+            <Text style={[styles.username, { marginLeft: 5 }]}>{item.userName}</Text>
+            <Text style={[styles.date, { marginLeft: 5 }]}>{item.postDate}</Text>
+          </View>
+          <View style={styles.topLeftRow}>
+            <TouchableOpacity onPress={() => changeLike(item?.id)} style={{ marginRight: 5 }} >
+              <AntDesign name={item.isLiked ? 'heart' : 'hearto'} color='black' size={20} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => unFollow(item?.userName)} >
+              <AntDesign name='check' color='black' size={20} />
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     )
   }
+  const getUpdatedFeedData = () => {
+    // console.log('followingData[currentUser]', followingData[currentUser]);
+    const updated = feedData?.filter(el => el?.userName !== currentUser)?.filter(el => followingData[currentUser]?.includes(el?.userName))
+    // console.log('updated', updated);
+    return updated
+  }
   return (
     <FlatList
-      data={feedData?.filter(el => el?.userName !== 'user1')?.filter(el => el?.isFollowing)}
+      // data={feedData?.filter(el => el?.userName !== currentUser)?.filter(el => el?.isFollowing)}
+      data={getUpdatedFeedData()}
       contentContainerStyle={styles.container}
       renderItem={({ item }) => <Item item={item} />}
       keyExtractor={(item, index) => index}
+      ListHeaderComponent={<Header />}
     />
   )
 }
@@ -65,9 +84,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginBottom: 20,
   },
+  topRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  topLeftRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  topRightRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   username: {
     fontSize: 20,
     color: 'black',
+    fontFamily: getFont('M')
+  },
+  date: {
+    fontSize: 20,
+    color: 'grey',
     fontFamily: getFont('M')
   },
   avatar: {
