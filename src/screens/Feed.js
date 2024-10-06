@@ -1,12 +1,10 @@
 import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { getFont, getUserImage } from '../helpers'
+import { currentUser, getFont, getUserImage } from '../helpers'
 import { AntDesign } from '../global/MyIcon'
 import useFeedStore from '../store/feedStore'
 import Header from '../components/Header'
 import useFollowingStore from '../store/followingStore'
-
-const currentUser = 'user1'
 
 const Feed = () => {
   const { feedData, changeLike } = useFeedStore()
