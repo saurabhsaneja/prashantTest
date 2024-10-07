@@ -1,13 +1,414 @@
 diff --git a/node_modules/react-native-video/android/build.gradle b/node_modules/react-native-video/android/build.gradle
-index 922bd9e..7c6d638 100644
+index 922bd9e..ebe81f7 100644
 --- a/node_modules/react-native-video/android/build.gradle
 +++ b/node_modules/react-native-video/android/build.gradle
-@@ -17,6 +17,6 @@ android {
+@@ -1,12 +1,12 @@
+ apply plugin: 'com.android.library'
+ 
+ android {
+-    compileSdkVersion 25
++    compileSdkVersion 30
+     buildToolsVersion "25.0.2"
+ 
+     defaultConfig {
+-        minSdkVersion 16
+-        targetSdkVersion 25
++        minSdkVersion 26
++        targetSdkVersion 26
+         versionCode 1
+         versionName "1.0"
+         ndk {
+@@ -17,6 +17,7 @@ android {
  
  dependencies {
      //noinspection GradleDynamicVersion
 -    provided 'com.facebook.react:react-native:+'
 -    compile 'com.yqritc:android-scalablevideoview:1.0.4'
 +    implementation 'com.facebook.react:react-native:+'
-+    implementation 'com.yqritc:android-scalablevideoview:1.0.4'
++    // implementation 'com.yqritc:android-scalablevideoview:1.0.4'
++    implementation 'com.github.thang2162:Android-ScalableVideoView:v1.1.1'
  }
+diff --git a/node_modules/react-native-video/android/build/.transforms/a1fe74435a4724dd48c10faf0042a8c0/results.bin b/node_modules/react-native-video/android/build/.transforms/a1fe74435a4724dd48c10faf0042a8c0/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/.transforms/a1fe74435a4724dd48c10faf0042a8c0/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/react-native-video/android/build/.transforms/a1fe74435a4724dd48c10faf0042a8c0/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-video/android/build/.transforms/a1fe74435a4724dd48c10faf0042a8c0/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..52a0b4c
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/a1fe74435a4724dd48c10faf0042a8c0/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/results.bin b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/results.bin
+new file mode 100644
+index 0000000..7ed749e
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/results.bin
+@@ -0,0 +1 @@
++o/bundleLibRuntimeToDirDebug
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/android/vending/expansion/zipfile/APEZProvider.dex b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/android/vending/expansion/zipfile/APEZProvider.dex
+new file mode 100644
+index 0000000..7999a30
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/android/vending/expansion/zipfile/APEZProvider.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/android/vending/expansion/zipfile/APKExpansionSupport.dex b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/android/vending/expansion/zipfile/APKExpansionSupport.dex
+new file mode 100644
+index 0000000..4aca1f5
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/android/vending/expansion/zipfile/APKExpansionSupport.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/android/vending/expansion/zipfile/ZipResourceFile$ZipEntryRO.dex b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/android/vending/expansion/zipfile/ZipResourceFile$ZipEntryRO.dex
+new file mode 100644
+index 0000000..42f958e
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/android/vending/expansion/zipfile/ZipResourceFile$ZipEntryRO.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/android/vending/expansion/zipfile/ZipResourceFile.dex b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/android/vending/expansion/zipfile/ZipResourceFile.dex
+new file mode 100644
+index 0000000..3d0d3b4
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/android/vending/expansion/zipfile/ZipResourceFile.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/BuildConfig.dex b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/BuildConfig.dex
+new file mode 100644
+index 0000000..0005259
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/BuildConfig.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoPackage.dex b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoPackage.dex
+new file mode 100644
+index 0000000..53714ed
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoPackage.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView$1.dex b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView$1.dex
+new file mode 100644
+index 0000000..8ede00e
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView$1.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView$2.dex b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView$2.dex
+new file mode 100644
+index 0000000..40b3f6e
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView$2.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView$3.dex b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView$3.dex
+new file mode 100644
+index 0000000..a54169a
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView$3.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView$Events.dex b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView$Events.dex
+new file mode 100644
+index 0000000..4d53540
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView$Events.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView.dex b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView.dex
+new file mode 100644
+index 0000000..6465c77
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoView.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoViewManager.dex b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoViewManager.dex
+new file mode 100644
+index 0000000..e29d535
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/com/brentvatne/react/ReactVideoViewManager.dex differ
+diff --git a/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin
+new file mode 100644
+index 0000000..f88339d
+Binary files /dev/null and b/node_modules/react-native-video/android/build/.transforms/e10fa90e0a96ab3056a393089426394b/transformed/bundleLibRuntimeToDirDebug/desugar_graph.bin differ
+diff --git a/node_modules/react-native-video/android/build/generated/source/buildConfig/debug/com/brentvatne/react/BuildConfig.java b/node_modules/react-native-video/android/build/generated/source/buildConfig/debug/com/brentvatne/react/BuildConfig.java
+new file mode 100644
+index 0000000..b769842
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/generated/source/buildConfig/debug/com/brentvatne/react/BuildConfig.java
+@@ -0,0 +1,10 @@
++/**
++ * Automatically generated file. DO NOT MODIFY
++ */
++package com.brentvatne.react;
++
++public final class BuildConfig {
++  public static final boolean DEBUG = Boolean.parseBoolean("true");
++  public static final String LIBRARY_PACKAGE_NAME = "com.brentvatne.react";
++  public static final String BUILD_TYPE = "debug";
++}
+diff --git a/node_modules/react-native-video/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml b/node_modules/react-native-video/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml
+new file mode 100644
+index 0000000..80f437f
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/AndroidManifest.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.brentvatne.react" >
++
++    <uses-sdk android:minSdkVersion="26" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/react-native-video/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json b/node_modules/react-native-video/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json
+new file mode 100644
+index 0000000..247891c
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/aapt_friendly_merged_manifests/debug/processDebugManifest/aapt/output-metadata.json
+@@ -0,0 +1,18 @@
++{
++  "version": 3,
++  "artifactType": {
++    "type": "AAPT_FRIENDLY_MERGED_MANIFESTS",
++    "kind": "Directory"
++  },
++  "applicationId": "com.brentvatne.react",
++  "variantName": "debug",
++  "elements": [
++    {
++      "type": "SINGLE",
++      "filters": [],
++      "attributes": [],
++      "outputFile": "AndroidManifest.xml"
++    }
++  ],
++  "elementType": "File"
++}
+\ No newline at end of file
+diff --git a/node_modules/react-native-video/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties b/node_modules/react-native-video/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties
+new file mode 100644
+index 0000000..1211b1e
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties
+@@ -0,0 +1,6 @@
++aarFormatVersion=1.0
++aarMetadataVersion=1.0
++minCompileSdk=1
++minCompileSdkExtension=0
++minAndroidGradlePluginVersion=1.0.0
++coreLibraryDesugaringEnabled=false
+diff --git a/node_modules/react-native-video/android/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json b/node_modules/react-native-video/android/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json
+new file mode 100644
+index 0000000..9e26dfe
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/annotation_processor_list/debug/javaPreCompileDebug/annotationProcessors.json
+@@ -0,0 +1 @@
++{}
+\ No newline at end of file
+diff --git a/node_modules/react-native-video/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar b/node_modules/react-native-video/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar
+new file mode 100644
+index 0000000..07cc381
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar b/node_modules/react-native-video/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar
+new file mode 100644
+index 0000000..1f5f4c0
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/compile_symbol_list/debug/generateDebugRFile/R.txt b/node_modules/react-native-video/android/build/intermediates/compile_symbol_list/debug/generateDebugRFile/R.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-video/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties b/node_modules/react-native-video/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+new file mode 100644
+index 0000000..5735a87
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+@@ -0,0 +1 @@
++#Mon Oct 07 04:54:10 PDT 2024
+diff --git a/node_modules/react-native-video/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml b/node_modules/react-native-video/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+new file mode 100644
+index 0000000..7db83cd
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/build/generated/res/resValues/debug"/></dataSet><mergedItems/></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-video/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml b/node_modules/react-native-video/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+new file mode 100644
+index 0000000..b5f0d31
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/jniLibs"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/debug/jniLibs"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-video/android/build/intermediates/incremental/mergeDebugShaders/merger.xml b/node_modules/react-native-video/android/build/intermediates/incremental/mergeDebugShaders/merger.xml
+new file mode 100644
+index 0000000..b246fb0
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/incremental/mergeDebugShaders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/shaders"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/debug/shaders"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-video/android/build/intermediates/incremental/packageDebugAssets/merger.xml b/node_modules/react-native-video/android/build/intermediates/incremental/packageDebugAssets/merger.xml
+new file mode 100644
+index 0000000..a60f6dd
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/incremental/packageDebugAssets/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/assets"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/debug/assets"/></dataSet><dataSet config="generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/build/intermediates/shader_assets/debug/compileDebugShaders/out"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/android/vending/expansion/zipfile/APEZProvider.class b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/android/vending/expansion/zipfile/APEZProvider.class
+new file mode 100644
+index 0000000..860d306
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/android/vending/expansion/zipfile/APEZProvider.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/android/vending/expansion/zipfile/APKExpansionSupport.class b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/android/vending/expansion/zipfile/APKExpansionSupport.class
+new file mode 100644
+index 0000000..0302263
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/android/vending/expansion/zipfile/APKExpansionSupport.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/android/vending/expansion/zipfile/ZipResourceFile$ZipEntryRO.class b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/android/vending/expansion/zipfile/ZipResourceFile$ZipEntryRO.class
+new file mode 100644
+index 0000000..c4b02f1
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/android/vending/expansion/zipfile/ZipResourceFile$ZipEntryRO.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/android/vending/expansion/zipfile/ZipResourceFile.class b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/android/vending/expansion/zipfile/ZipResourceFile.class
+new file mode 100644
+index 0000000..40ec607
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/android/vending/expansion/zipfile/ZipResourceFile.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/BuildConfig.class b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/BuildConfig.class
+new file mode 100644
+index 0000000..0a116ba
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/BuildConfig.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoPackage.class b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoPackage.class
+new file mode 100644
+index 0000000..6027a23
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoPackage.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView$1.class b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView$1.class
+new file mode 100644
+index 0000000..78ffce6
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView$1.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView$2.class b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView$2.class
+new file mode 100644
+index 0000000..9cc3738
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView$2.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView$3.class b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView$3.class
+new file mode 100644
+index 0000000..6b5ead0
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView$3.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView$Events.class b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView$Events.class
+new file mode 100644
+index 0000000..acb7b5e
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView$Events.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView.class b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView.class
+new file mode 100644
+index 0000000..113aa9c
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoView.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoViewManager.class b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoViewManager.class
+new file mode 100644
+index 0000000..4f9b128
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes/com/brentvatne/react/ReactVideoViewManager.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt b/node_modules/react-native-video/android/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt
+new file mode 100644
+index 0000000..78ac5b8
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/local_only_symbol_list/debug/parseDebugLocalResources/R-def.txt
+@@ -0,0 +1,2 @@
++R_DEF: Internal format may change without notice
++local
+diff --git a/node_modules/react-native-video/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt b/node_modules/react-native-video/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt
+new file mode 100644
+index 0000000..03ce64a
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/manifest_merge_blame_file/debug/processDebugManifest/manifest-merger-blame-debug-report.txt
+@@ -0,0 +1,7 @@
++1<?xml version="1.0" encoding="utf-8"?>
++2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++3    package="com.brentvatne.react" >
++4
++5    <uses-sdk android:minSdkVersion="26" />
++6
++7</manifest>
+diff --git a/node_modules/react-native-video/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml b/node_modules/react-native-video/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml
+new file mode 100644
+index 0000000..80f437f
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.brentvatne.react" >
++
++    <uses-sdk android:minSdkVersion="26" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/react-native-video/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json b/node_modules/react-native-video/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json
+new file mode 100644
+index 0000000..0637a08
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json
+@@ -0,0 +1 @@
++[]
+\ No newline at end of file
+diff --git a/node_modules/react-native-video/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt b/node_modules/react-native-video/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt
+new file mode 100644
+index 0000000..08f4ebe
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt
+@@ -0,0 +1 @@
++0 Warning/Error
+\ No newline at end of file
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/android/vending/expansion/zipfile/APEZProvider.class b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/android/vending/expansion/zipfile/APEZProvider.class
+new file mode 100644
+index 0000000..860d306
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/android/vending/expansion/zipfile/APEZProvider.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/android/vending/expansion/zipfile/APKExpansionSupport.class b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/android/vending/expansion/zipfile/APKExpansionSupport.class
+new file mode 100644
+index 0000000..0302263
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/android/vending/expansion/zipfile/APKExpansionSupport.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/android/vending/expansion/zipfile/ZipResourceFile$ZipEntryRO.class b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/android/vending/expansion/zipfile/ZipResourceFile$ZipEntryRO.class
+new file mode 100644
+index 0000000..c4b02f1
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/android/vending/expansion/zipfile/ZipResourceFile$ZipEntryRO.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/android/vending/expansion/zipfile/ZipResourceFile.class b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/android/vending/expansion/zipfile/ZipResourceFile.class
+new file mode 100644
+index 0000000..40ec607
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/android/vending/expansion/zipfile/ZipResourceFile.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/BuildConfig.class b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/BuildConfig.class
+new file mode 100644
+index 0000000..0a116ba
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/BuildConfig.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoPackage.class b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoPackage.class
+new file mode 100644
+index 0000000..6027a23
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoPackage.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView$1.class b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView$1.class
+new file mode 100644
+index 0000000..78ffce6
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView$1.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView$2.class b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView$2.class
+new file mode 100644
+index 0000000..9cc3738
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView$2.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView$3.class b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView$3.class
+new file mode 100644
+index 0000000..6b5ead0
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView$3.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView$Events.class b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView$Events.class
+new file mode 100644
+index 0000000..acb7b5e
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView$Events.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView.class b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView.class
+new file mode 100644
+index 0000000..113aa9c
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoView.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoViewManager.class b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoViewManager.class
+new file mode 100644
+index 0000000..4f9b128
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/com/brentvatne/react/ReactVideoViewManager.class differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar
+new file mode 100644
+index 0000000..91a13f2
+Binary files /dev/null and b/node_modules/react-native-video/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar differ
+diff --git a/node_modules/react-native-video/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt b/node_modules/react-native-video/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt
+new file mode 100644
+index 0000000..7e5a3a7
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt
+@@ -0,0 +1 @@
++com.brentvatne.react
+diff --git a/node_modules/react-native-video/android/build/outputs/logs/manifest-merger-debug-report.txt b/node_modules/react-native-video/android/build/outputs/logs/manifest-merger-debug-report.txt
+new file mode 100644
+index 0000000..ef669ce
+--- /dev/null
++++ b/node_modules/react-native-video/android/build/outputs/logs/manifest-merger-debug-report.txt
+@@ -0,0 +1,17 @@
++-- Merging decision tree log ---
++manifest
++ADDED from /Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/AndroidManifest.xml:1:1-3:12
++INJECTED from /Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/AndroidManifest.xml:1:1-3:12
++	package
++		ADDED from /Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/AndroidManifest.xml:2:11-41
++		INJECTED from /Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/AndroidManifest.xml
++	xmlns:android
++		ADDED from /Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/AndroidManifest.xml:1:11-69
++uses-sdk
++INJECTED from /Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
++INJECTED from /Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/AndroidManifest.xml
++INJECTED from /Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/AndroidManifest.xml
++	android:targetSdkVersion
++		INJECTED from /Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/AndroidManifest.xml
++	android:minSdkVersion
++		INJECTED from /Users/gauravsaneja/Desktop/tests/prashantTest/node_modules/react-native-video/android/src/main/AndroidManifest.xml
+diff --git a/node_modules/react-native-video/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin b/node_modules/react-native-video/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
+new file mode 100644
+index 0000000..3ec9284
+Binary files /dev/null and b/node_modules/react-native-video/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin differ
