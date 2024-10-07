@@ -33,7 +33,7 @@ const Profile = ({ navigation }) => {
         <ImageSlider
           data={item?.images?.map(el => ({ img: el }))}
           autoPlay={true}
-          onItemChanged={(item) => console.log("item", item)}
+          // onItemChanged={(item) => console.log("item", item)}
           closeIconColor="#fff"
           caroselImageContainerStyle={{ width: (width - 40 - 40) / 3, height: (width - 40 - 40) / 3 }}
         />
@@ -44,7 +44,7 @@ const Profile = ({ navigation }) => {
     <View style={{ marginBottom: 20 }}>
       <Header />
       <Text style={styles.text}>Followers {getNumFollowers()}</Text>
-      <Text style={styles.text}>Followering {followingData[currentUser]?.length}</Text>
+      <Text style={styles.text}>Following {followingData[currentUser]?.length}</Text>
       <MyButton title='Create Post' onPress={openModal} style={{ marginTop: 10 }} />
     </View>
   )

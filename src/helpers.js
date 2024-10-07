@@ -13,3 +13,22 @@ export const getUserImage = (name) => {
   const img = name === 'user1' ? user1Image : name === 'user2' ? user2Image : user3Image
   return img
 }
+
+export const isImage = (type) => {
+  return type?.startsWith('image')
+}
+
+export const getFormattedCurrentDate = () => {
+  const currentDate = new Date(); // get current date
+
+  // options for formatting the date
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  };
+
+  // format the date
+  const formattedDate = currentDate.toLocaleDateString('en-US', options);
+  return formattedDate
+}

@@ -2,10 +2,10 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { getFont } from '../helpers'
 
-const MyButton = ({ title, onPress, style }) => {
+const MyButton = ({ title, onPress, style, textStyle }) => {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.button, style]} >
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, textStyle]}>{title}</Text>
     </TouchableOpacity>
   )
 }

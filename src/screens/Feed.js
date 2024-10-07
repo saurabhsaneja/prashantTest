@@ -51,7 +51,7 @@ const Feed = () => {
         <ImageSlider
           data={item?.images?.map(el => ({img: el}))}
           autoPlay={true}
-          onItemChanged={(item) => console.log("item", item)}
+          // onItemChanged={(item) => console.log("item", item)}
           closeIconColor="#fff"
         />
         <Text style={styles.date}>{item.title}</Text>

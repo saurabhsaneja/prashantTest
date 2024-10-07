@@ -1,17 +1,21 @@
 //react components
 import React, { useState } from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
-import { getFont } from '../helpers';
+import { currentUser, getFont, getFormattedCurrentDate } from '../helpers';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import SelectImageSource from './SelectImageSource';
 import MyButton from './MyButton';
 import Toast from 'react-native-simple-toast'
+import { Fontisto } from '../global/MyIcon';
+import useFeedStore from '../store/feedStore';
 
 const CreatePost = ({ visible, setVisibility, }) => {
+  const { addToFeedData } = useFeedStore()
   const [title, setTitle] = useState('')
   const [desc, setDesc] = useState('')
-  const [media, setMedia] = useState({})
+  const [media, setMedia] = useState([])
   const [showImageSourceModal, setShowImageSourceModal] = useState(false);
+  const [videoModeSelected, setVideoModeSelected] = useState(false);
   //function : imp function
   const openLibrary = () => {
     let options = {
@@ -22,6 +26,7 @@ const CreatePost = ({ visible, setVisibility, }) => {
           title: 'Choose Photo from Custom Option',
         },
       ],
+      selectionLimit: 0,
       storageOptions: {
         skipBackup: true,
         path: 'images',
@@ -51,8 +56,8 @@ const CreatePost = ({ visible, setVisibility, }) => {
         Toast.show(response.errorMessage);
         return;
       }
-      console.log('Response = ', response.assets[0]);
-      setMedia(response.assets[0]);
+      console.log('Response = ', response.assets);
+      setMedia(response.assets);
       setShowImageSourceModal(false);
     });
   };
@@ -62,7 +67,8 @@ const CreatePost = ({ visible, setVisibility, }) => {
       width: 1080,
       height: 1080,
       cropping: true,
-      mediaType: 'photo',
+      mediaType: videoModeSelected ? 'video' : 'photo',
+      // mediaType: 'video',
       compressImageQuality: 1,
       compressImageMaxHeight: 1080 / 2,
       compressImageMaxWidth: 1080 / 2,
@@ -71,30 +77,60 @@ const CreatePost = ({ visible, setVisibility, }) => {
       if (response.didCancel) {
         // Alert.alert('User cancelled camera picker');
         setShowImageSourceModal(false);
-        dispatch(showToast({ text: 'User cancelled picking image' }));
-        // Alert.alert('User cancelled picking image');
+        // dispatch(showToast({ text: 'User cancelled picking image' }));
+        Toast.show('User cancelled picking image');
         return;
       } else if (response.errorCode == 'camera_unavailable') {
         setShowImageSourceModal(false);
-        dispatch(showToast({ text: 'Camera not available on device' }));
-        // Alert.alert('Camera not available on device');
+        // dispatch(showToast({ text: 'Camera not available on device' }));
+        Toast.show('Camera not available on device');
         return;
       } else if (response.errorCode == 'permission') {
         setShowImageSourceModal(false);
-        dispatch(showToast({ text: 'Permission not satisfied' }));
-        // Alert.alert('Permission not satisfied');
+        // dispatch(showToast({ text: 'Permission not satisfied' }));
+        Toast.show('Permission not satisfied');
         return;
       } else if (response.errorCode == 'others') {
         setShowImageSourceModal(false);
-        dispatch(showToast({ text: response.errorMessage }));
-        // Alert.alert(response.errorMessage);
+        // dispatch(showToast({ text: response.errorMessage }));
+        Toast.show(response.errorMessage);
         return;
       }
-      console.log('Response = ', response.assets[0]);
-      setMedia(response.assets[0]);
+      console.log('Response = ', response.assets);
+      setMedia(response.assets);
       setShowImageSourceModal(false);
     });
   };
+  const validation = () => {
+    if (title?.trim()?.length === 0) {
+      Toast.show('Please enter Title')
+      return false
+    } else if (desc?.trim()?.length === 0) {
+      Toast.show('Please enter Description')
+      return false
+    } else if (media?.length === 0) {
+      Toast.show('Please select media')
+      return false
+    }
+    return true
+  }
+  const onSubmit = () => {
+    if (!validation()) {
+      return
+    }
+    console.log('seleted images', media?.map(el => ({ img: el?.uri })));
+    // return
+    addToFeedData({
+      // id: '6',
+      userName: currentUser,
+      images: media?.map(el => el?.uri),
+      desc: desc,
+      title: title,
+      isLiked: false,
+      postDate: getFormattedCurrentDate(),
+    },)
+    closeModal()
+  }
   //function : modal function
   const closeModal = () => {
     setVisibility(false);
@@ -108,12 +144,13 @@ const CreatePost = ({ visible, setVisibility, }) => {
       onShow={() => {
         setTitle('')
         setDesc('')
-        setMedia({})
+        setMedia([])
       }}
       transparent>
       <View style={styles.container}>
         <TouchableOpacity style={styles.blurView} onPress={closeModal} />
         <View style={styles.mainView}>
+          <Text style={styles.create}>Create Post</Text>
           <TextInput
             value={title}
             onChangeText={(t) => setTitle(t)}
@@ -128,7 +165,14 @@ const CreatePost = ({ visible, setVisibility, }) => {
             placeholderTextColor='grey'
             style={styles.input}
           />
-          <MyButton title='Add Media' onPress={() => setShowImageSourceModal(true)} />
+          <View style={styles.row}>
+            <TouchableOpacity onPress={() => setVideoModeSelected(!videoModeSelected)} >
+              <Fontisto name={videoModeSelected ? 'checkbox-active' : 'checkbox-passive'} color='black' size={20} />
+            </TouchableOpacity>
+            <Text style={[styles.text, { marginLeft: 5 }]}>Select video from camera</Text>
+          </View>
+          <MyButton title='Add Media' onPress={() => setShowImageSourceModal(true)} style={styles.addMedia} textStyle={{ color: 'black' }} />
+          <MyButton title='Submit' onPress={onSubmit} style={{ marginTop: 10 }} />
         </View>
       </View>
       <SelectImageSource
@@ -157,7 +201,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   input: {
-    height: 40,
+    height: 50,
     backgroundColor: 'white',
     borderRadius: 10,
     borderColor: 'black',
@@ -167,5 +211,27 @@ const styles = StyleSheet.create({
     fontFamily: getFont('R'),
     marginBottom: 10,
     paddingLeft: 10
-  }
+  },
+  text: {
+    fontSize: 20,
+    color: 'black',
+    fontFamily: getFont('R')
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  create: {
+    fontSize: 20,
+    color: 'black',
+    fontFamily: getFont('M'),
+    textAlign: 'center',
+    marginBottom: 10
+  },
+  addMedia: {
+    backgroundColor: 'white',
+    borderColor: 'grey',
+    borderWidth: 1,
+    marginTop: 10
+  },
 })

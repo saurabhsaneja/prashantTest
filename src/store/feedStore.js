@@ -4,7 +4,7 @@ import Toast from 'react-native-simple-toast'
 const images = [
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5a5uCP-n4teeW2SApcIqUrcQApev8ZVCJkA&usqp=CAU',
   'https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg',
-  'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg', 
+  'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg',
 ]
 
 const useFeedStore = create((set) => ({
@@ -75,7 +75,13 @@ const useFeedStore = create((set) => ({
     },
   ],
   addToFeedData: (data) => set((state) => {
-    return { feedData: [...state.feedData, ...data] }
+    console.log('addToFeedData', data);
+    const { userName } = data
+    let updatedData = [...state.feedData]
+    const maxId = Math.max(...updatedData?.filter(el => el?.userName === userName)?.map(el => Number(el?.id)))
+    const dataCopy = { ...data, id: String(maxId + 1) }
+    console.log('add to', dataCopy);
+    return { feedData: [...state.feedData, dataCopy] }
   }),
   changeLike: (id) => set((state) => {
     console.log('id', id);
