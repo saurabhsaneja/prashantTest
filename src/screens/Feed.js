@@ -54,6 +54,8 @@ const Feed = () => {
           onItemChanged={(item) => console.log("item", item)}
           closeIconColor="#fff"
         />
+        <Text style={styles.date}>{item.title}</Text>
+        <Text style={styles.date}>{item.desc}</Text>
       </View>
     )
   }

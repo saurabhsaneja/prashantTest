@@ -1,15 +1,22 @@
 import { FlatList, StyleSheet, Text, View, useWindowDimensions } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header'
 import useFollowingStore from '../store/followingStore'
 import { currentUser, getFont } from '../helpers'
 import useFeedStore from '../store/feedStore'
 import { ImageSlider } from '@pembajak/react-native-image-slider-banner';
+import MyButton from '../modals/MyButton'
+import CreatePost from '../modals/CreatePost'
 
 const Profile = ({ navigation }) => {
   const { followingData } = useFollowingStore()
   const { feedData } = useFeedStore()
   const { width, height } = useWindowDimensions()
+  const [showModal, setShowModal] = useState(false)
+
+  const openModal = () => {
+    setShowModal(true)
+  }
   const getNumFollowers = () => {
     const restOfUsers = Object.keys(followingData)?.filter(el => el !== currentUser)
     let count = 0
@@ -28,7 +35,7 @@ const Profile = ({ navigation }) => {
           autoPlay={true}
           onItemChanged={(item) => console.log("item", item)}
           closeIconColor="#fff"
-          caroselImageContainerStyle={{width: (width - 40 - 40) / 3, height: (width - 40 - 40) / 3}}
+          caroselImageContainerStyle={{ width: (width - 40 - 40) / 3, height: (width - 40 - 40) / 3 }}
         />
       </View>
     )
@@ -38,6 +45,7 @@ const Profile = ({ navigation }) => {
       <Header />
       <Text style={styles.text}>Followers {getNumFollowers()}</Text>
       <Text style={styles.text}>Followering {followingData[currentUser]?.length}</Text>
+      <MyButton title='Create Post' onPress={openModal} style={{ marginTop: 10 }} />
     </View>
   )
   return (
@@ -49,6 +57,7 @@ const Profile = ({ navigation }) => {
       renderItem={renderItem}
       keyExtractor={(item, index) => index}
       ListHeaderComponent={ListHeaderComponent}
+      ListFooterComponent={showModal ? <CreatePost visible={showModal} setVisibility={setShowModal} /> : null}
     />
   )
 }
