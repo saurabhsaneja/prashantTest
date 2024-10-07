@@ -29,20 +29,20 @@ const Profile = ({ navigation }) => {
   }
   const renderItem = ({ item, index }) => {
     return (
-      <View style={[styles.item, { width: (width - 40 - 40) / 3 }, index % 3 === 0 ? { marginRight: 20 } : null, index % 3 === 2 ? { marginLeft: 20 } : null]}>
+      <View style={[styles.item, { width: (width - 40) }]}>
         <ImageSlider
           data={item?.images?.map(el => ({ img: el }))}
           autoPlay={true}
           // onItemChanged={(item) => console.log("item", item)}
           closeIconColor="#fff"
-          caroselImageContainerStyle={{ width: (width - 40 - 40) / 3, height: (width - 40 - 40) / 3 }}
+          caroselImageContainerStyle={{ width: (width - 40), height: (width - 40) }}
         />
       </View>
     )
   }
   const ListHeaderComponent = () => (
     <View style={{ marginBottom: 20 }}>
-      <Header />
+      <Header screenname='Profile Screen' />
       <Text style={styles.text}>Followers {getNumFollowers()}</Text>
       <Text style={styles.text}>Following {followingData[currentUser]?.length}</Text>
       <MyButton title='Create Post' onPress={openModal} style={{ marginTop: 10 }} />
@@ -51,7 +51,7 @@ const Profile = ({ navigation }) => {
   return (
     <FlatList
       data={feedData?.filter(el => el?.userName == currentUser)}
-      numColumns={3}
+      // numColumns={3}
       contentContainerStyle={styles.container}
       // renderItem={({ item }) => <Item item={item} />}
       renderItem={renderItem}
@@ -66,7 +66,7 @@ export default Profile
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     padding: 20,
     backgroundColor: 'white'
   },

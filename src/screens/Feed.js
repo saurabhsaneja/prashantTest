@@ -72,7 +72,7 @@ const Feed = () => {
       contentContainerStyle={styles.container}
       renderItem={({ item }) => <Item item={item} />}
       keyExtractor={(item, index) => index}
-      ListHeaderComponent={<Header />}
+      ListHeaderComponent={<Header screenname='Feed Screen' />}
     />
   )
 }

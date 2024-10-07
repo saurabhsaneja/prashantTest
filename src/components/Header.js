@@ -4,14 +4,18 @@ import { getFont, getUserImage } from '../helpers'
 import { useNavigation } from '@react-navigation/native';
 import { ScreenNames } from '../global/Index';
 
-const Header = () => {
+const Header = ({ screenname }) => {
   const navigation = useNavigation()
   const gotoProfile = () => navigation.navigate(ScreenNames.PROFILE)
   return (
-    <TouchableOpacity onPress={gotoProfile} style={styles.topRow}>
-      <Image source={{ uri: getUserImage('user1') }} style={styles.avatar} />
-      <Text style={[styles.username, { marginLeft: 5 }]}>user1</Text>
-    </TouchableOpacity>)
+    <>
+      <Text style={[styles.username, { textAlign: 'center', fontSize: 24 }]}>{screenname}</Text>
+      <TouchableOpacity onPress={gotoProfile} style={styles.topRow}>
+        <Image source={{ uri: getUserImage('user1') }} style={styles.avatar} />
+        <Text style={[styles.username, { marginLeft: 5 }]}>user1</Text>
+      </TouchableOpacity>
+    </>
+  )
 }
 
 export default Header

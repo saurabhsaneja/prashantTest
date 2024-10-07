@@ -1,7 +1,7 @@
 //react components
 import React, { useState } from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
-import { currentUser, getFont, getFormattedCurrentDate } from '../helpers';
+import { currentUser, getFont, getFormattedCurrentDate, isImage } from '../helpers';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import SelectImageSource from './SelectImageSource';
 import MyButton from './MyButton';
@@ -120,16 +120,25 @@ const CreatePost = ({ visible, setVisibility, }) => {
     }
     console.log('seleted images', media?.map(el => ({ img: el?.uri })));
     // return
+    const isTypeImage = isImage(media[0]?.type)
+    const uploads = {}
+    if (isTypeImage) {
+      uploads.images = media?.map(el => el?.uri)
+    } else {
+      uploads.video = media?.map(el => el?.uri)
+    }
     addToFeedData({
       // id: '6',
       userName: currentUser,
-      images: media?.map(el => el?.uri),
+      // images: media?.map(el => el?.uri),
+      ...uploads,
       desc: desc,
       title: title,
       isLiked: false,
       postDate: getFormattedCurrentDate(),
     },)
     closeModal()
+    Toast.show('Media uploaded sucessfully')
   }
   //function : modal function
   const closeModal = () => {
