@@ -19,7 +19,7 @@ const Profile = ({ navigation, route }) => {
   const [showModal, setShowModal] = useState(false)
   const [showRecordingComponent, setShowRecordingComponent] = useState(false)
 
-  const gotoCreatePost = () => { navigation.navigate(ScreenNames.CREATE_POST, {user}) }
+  const gotoCreatePost = () => { navigation.navigate(ScreenNames.CREATE_POST, { user }) }
   const getNumFollowers = () => {
     const restOfUsers = Object.keys(followingData)?.filter(el => el !== user)
     let count = 0
@@ -56,6 +56,8 @@ const Profile = ({ navigation, route }) => {
             caroselImageContainerStyle={{ width: (width - 40), height: (width - 40) }}
           />
         }
+        <Text style={styles.date}>{item.title}</Text>
+        <Text style={styles.date}>{item.desc}</Text>
       </View>
     )
   }
@@ -121,5 +123,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'red',
     fontFamily: getFont('R')
+  },
+  date: {
+    fontSize: 20,
+    color: 'grey',
+    fontFamily: getFont('M')
   },
 })
