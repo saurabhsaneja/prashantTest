@@ -7,16 +7,20 @@ import useFeedStore from '../store/feedStore'
 import { ImageSlider } from '@pembajak/react-native-image-slider-banner';
 import MyButton from '../modals/MyButton'
 import CreatePost from '../modals/CreatePost'
+import Recording from '../components/Recording'
+import { ScreenNames } from '../global/Index'
 
 const Profile = ({ navigation }) => {
   const { followingData } = useFollowingStore()
   const { feedData } = useFeedStore()
   const { width, height } = useWindowDimensions()
   const [showModal, setShowModal] = useState(false)
+  const [showRecordingComponent, setShowRecordingComponent] = useState(false)
 
   const openModal = () => {
     setShowModal(true)
   }
+  const gotoRecordingComponent = () => {navigation.navigate(ScreenNames.RECORDING)}
   const getNumFollowers = () => {
     const restOfUsers = Object.keys(followingData)?.filter(el => el !== currentUser)
     let count = 0
@@ -45,7 +49,11 @@ const Profile = ({ navigation }) => {
       <Header screenname='Profile Screen' />
       <Text style={styles.text}>Followers {getNumFollowers()}</Text>
       <Text style={styles.text}>Following {followingData[currentUser]?.length}</Text>
-      <MyButton title='Create Post' onPress={openModal} style={{ marginTop: 10 }} />
+      {/* <MyButton title='Create Post' onPress={openModal} style={{ marginTop: 10 }} /> */}
+      <MyButton title='Create Post' onPress={gotoRecordingComponent} style={{ marginTop: 10 }} />
+      {showRecordingComponent ?
+        <Recording />
+        : null}
     </View>
   )
   return (
