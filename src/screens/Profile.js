@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View, useWindowDimensions } from 'react-native'
+import { FlatList, StyleSheet, Text, View, useWindowDimensions, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import Header from '../components/Header'
 import useFollowingStore from '../store/followingStore'
@@ -8,10 +8,12 @@ import { ImageSlider } from '@pembajak/react-native-image-slider-banner';
 import MyButton from '../modals/MyButton'
 import Recording from '../components/Recording'
 import { ScreenNames } from '../global/Index'
+import { AntDesign, Feather } from '../global/MyIcon'
+import Video from 'react-native-video';
 
 const Profile = ({ navigation }) => {
   const { followingData } = useFollowingStore()
-  const { feedData } = useFeedStore()
+  const { feedData, changePlayPause } = useFeedStore()
   const { width, height } = useWindowDimensions()
   const [showModal, setShowModal] = useState(false)
   const [showRecordingComponent, setShowRecordingComponent] = useState(false)
@@ -27,16 +29,32 @@ const Profile = ({ navigation }) => {
     });
     return count
   }
+  const togglePlayPause = (id) => {
+    changePlayPause(id)
+  }
   const renderItem = ({ item, index }) => {
     return (
       <View style={[styles.item, { width: (width - 40) }]}>
-        <ImageSlider
-          data={item?.images?.map(el => ({ img: el }))}
-          autoPlay={true}
-          // onItemChanged={(item) => console.log("item", item)}
-          closeIconColor="#fff"
-          caroselImageContainerStyle={{ width: (width - 40), height: (width - 40) }}
-        />
+        {item?.video ?
+          <View style={styles.video}>
+            <Video source={{ uri: item?.video }} paused={!item?.isPlaying} onEnd={() => togglePlayPause(item?.id)} style={styles.video} />
+            <TouchableOpacity onPress={() => togglePlayPause(item?.id)} style={styles.controlButton}>
+              {item?.isPlaying ?
+                <AntDesign name='pause' color='red' size={20} />
+                :
+                <Feather name='play' color='red' size={20} />
+              }
+            </TouchableOpacity>
+          </View>
+          :
+          <ImageSlider
+            data={item?.images?.map(el => ({ img: el }))}
+            autoPlay={true}
+            // onItemChanged={(item) => console.log("item", item)}
+            closeIconColor="#fff"
+            caroselImageContainerStyle={{ width: (width - 40), height: (width - 40) }}
+          />
+        }
       </View>
     )
   }
@@ -61,7 +79,7 @@ const Profile = ({ navigation }) => {
       renderItem={renderItem}
       keyExtractor={(item, index) => index}
       ListHeaderComponent={ListHeaderComponent}
-      // ListFooterComponent={showModal ? <CreatePost visible={showModal} setVisibility={setShowModal} /> : null}
+    // ListFooterComponent={showModal ? <CreatePost visible={showModal} setVisibility={setShowModal} /> : null}
     />
   )
 }
@@ -86,5 +104,14 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 20,
     marginBottom: 20,
+  },
+  video: {
+    height: 260,
+    width: '92%',
+  },
+  controlButton: {
+    position: 'absolute',
+    left: '46%',
+    bottom: 20
   },
 })

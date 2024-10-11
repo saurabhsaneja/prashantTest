@@ -76,17 +76,20 @@ const useFeedStore = create((set) => ({
   ],
   addToFeedData: (data) => set((state) => {
     console.log('addToFeedData', data);
-    const { userName } = data
     let updatedData = [...state.feedData]
     const maxId = Math.max(...updatedData?.map(el => Number(el?.id)))
     const dataCopy = { ...data, id: String(maxId + 1) }
     console.log('add to', dataCopy);
     return { feedData: [...state.feedData, dataCopy] }
   }),
+  changePlayPause: (id) => set((state) => {
+    let updatedData = [...state.feedData]
+    updatedData = updatedData?.map(el => el?.id === id ? { ...el, isPlaying: !el?.isPlaying } : el)
+    return { feedData: updatedData }
+  }),
   changeLike: (id) => set((state) => {
     console.log('id', id);
     let updatedData = [...state.feedData]
-    const status = !updatedData?.find(el => el?.id === id)?.isLiked
     updatedData = updatedData?.map(el => el?.id === id ? { ...el, isLiked: !el?.isLiked } : el)
     console.log('updatedData', updatedData[0]);
     Toast.show(`${status ? 'Liked' : 'Unliked'} successfuly`, Toast.SHORT)

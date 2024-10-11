@@ -11,7 +11,7 @@ import Header from '../components/Header'
 import Recording from '../components/Recording'
 import Video from 'react-native-video';
 
-export default function CreatePost() {
+export default function CreatePost({ navigation }) {
   const { addToFeedData } = useFeedStore()
   const [title, setTitle] = useState('')
   const [desc, setDesc] = useState('')
@@ -83,7 +83,7 @@ export default function CreatePost() {
     } else if (desc?.trim()?.length === 0) {
       Toast.show('Please enter Description')
       return false
-    } else if (typeof media === 'string' || (Array.isArray(media) && media?.length === 0)) {
+    } else if (!(typeof media == 'string' || (Array.isArray(media) && media?.length === 0))) {
       Toast.show('Please select media')
       return false
     }
@@ -93,14 +93,14 @@ export default function CreatePost() {
     if (!validation()) {
       return
     }
-    console.log('seleted images', media?.map(el => ({ img: el?.uri })));
+    console.log('seleted media', media);
     // return
-    const isTypeImage = isImage(media[0]?.type)
+    const isTypeImage = typeof media !== 'string'
     const uploads = {}
     if (isTypeImage) {
       uploads.images = media?.map(el => el?.uri)
     } else {
-      uploads.video = media?.map(el => el?.uri)
+      uploads.video = media
     }
     addToFeedData({
       // id: '6',
@@ -110,15 +110,12 @@ export default function CreatePost() {
       desc: desc,
       title: title,
       isLiked: false,
+      isPlaying: false,
       postDate: getFormattedCurrentDate(),
     },)
-    closeModal()
     Toast.show('Media uploaded sucessfully')
+    navigation.goBack()
   }
-  //function : modal function
-  const closeModal = () => {
-    setVisibility(false);
-  };
   return (
     <View style={styles.container}>
       <ScrollView>
