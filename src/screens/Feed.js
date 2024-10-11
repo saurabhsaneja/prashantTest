@@ -6,12 +6,15 @@ import useFeedStore from '../store/feedStore'
 import Header from '../components/Header'
 import useFollowingStore from '../store/followingStore'
 import { ImageSlider } from '@pembajak/react-native-image-slider-banner';
+import { ScreenNames } from '../global/Index'
 
-const Feed = () => {
+const Feed = ({ navigation }) => {
   const { width, height } = useWindowDimensions()
   const { feedData, changeLike } = useFeedStore()
   const { followingData, updateFollowing } = useFollowingStore()
   const [imgStyle] = useState({ width: width * 0.8, height: width * 0.8 })
+
+  const gotoProfile = (userName) => navigation.navigate(ScreenNames.PROFILE, { user: userName })
   // console.log('feedData', feedData);
   const unFollow = (user) => {
     Alert.alert('Unfollow', 'Are you sure you want to unfollow?', [
@@ -34,11 +37,11 @@ const Feed = () => {
     return (
       <View style={styles.item}>
         <View style={styles.topRow}>
-          <View style={styles.topLeftRow}>
+          <TouchableOpacity onPress={() => gotoProfile(item?.userName)} style={styles.topLeftRow}>
             <Image source={{ uri: getUserImage(item?.userName) }} style={styles.avatar} />
             <Text style={[styles.username, { marginLeft: 5 }]}>{item.userName}</Text>
             <Text style={[styles.date, { marginLeft: 5 }]}>{item.postDate}</Text>
-          </View>
+          </TouchableOpacity>
           <View style={styles.topLeftRow}>
             <TouchableOpacity onPress={() => changeLike(item?.id)} style={{ marginRight: 5 }} >
               <AntDesign name={item.isLiked ? 'heart' : 'hearto'} color='black' size={20} />
@@ -49,7 +52,7 @@ const Feed = () => {
           </View>
         </View>
         <ImageSlider
-          data={item?.images?.map(el => ({img: el}))}
+          data={item?.images?.map(el => ({ img: el }))}
           autoPlay={true}
           // onItemChanged={(item) => console.log("item", item)}
           closeIconColor="#fff"

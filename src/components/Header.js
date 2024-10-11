@@ -1,18 +1,18 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { getFont, getUserImage } from '../helpers'
+import { currentUser, getFont, getUserImage } from '../helpers'
 import { useNavigation } from '@react-navigation/native';
 import { ScreenNames } from '../global/Index';
 
-const Header = ({ screenname, canClick = true }) => {
+const Header = ({ screenname, canClick = true, user = 'user1' }) => {
   const navigation = useNavigation()
-  const gotoProfile = () => navigation.navigate(ScreenNames.PROFILE)
+  const gotoProfile = () => navigation.navigate(ScreenNames.PROFILE, { user: currentUser })
   return (
     <>
       <Text style={[styles.username, { textAlign: 'center', fontSize: 24 }]}>{screenname}</Text>
       <TouchableOpacity disabled={!canClick} onPress={gotoProfile} style={styles.topRow}>
-        <Image source={{ uri: getUserImage('user1') }} style={styles.avatar} />
-        <Text style={[styles.username, { marginLeft: 5 }]}>user1</Text>
+        <Image source={{ uri: getUserImage(user) }} style={styles.avatar} />
+        <Text style={[styles.username, { marginLeft: 5 }]}>{user}</Text>
       </TouchableOpacity>
     </>
   )

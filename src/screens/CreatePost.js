@@ -12,7 +12,8 @@ import Recording from '../components/Recording'
 import Video from 'react-native-video';
 import { ImageSlider } from '@pembajak/react-native-image-slider-banner';
 
-export default function CreatePost({ navigation }) {
+export default function CreatePost({ navigation, route }) {
+  const { user } = route?.params
   const { width, height } = useWindowDimensions()
   const { addToFeedData } = useFeedStore()
   const [title, setTitle] = useState('')
@@ -106,7 +107,8 @@ export default function CreatePost({ navigation }) {
     }
     addToFeedData({
       // id: '6',
-      userName: currentUser,
+      // userName: currentUser,
+      userName: user,
       // images: media?.map(el => el?.uri),
       ...uploads,
       desc: desc,

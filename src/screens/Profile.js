@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, Text, View, useWindowDimensions, TouchableOpacity
 import React, { useState } from 'react'
 import Header from '../components/Header'
 import useFollowingStore from '../store/followingStore'
-import { currentUser, getFont } from '../helpers'
+import { currentUser as user, getFont, currentUser } from '../helpers'
 import useFeedStore from '../store/feedStore'
 import { ImageSlider } from '@pembajak/react-native-image-slider-banner';
 import MyButton from '../modals/MyButton'
@@ -11,19 +11,20 @@ import { ScreenNames } from '../global/Index'
 import { AntDesign, Feather } from '../global/MyIcon'
 import Video from 'react-native-video';
 
-const Profile = ({ navigation }) => {
+const Profile = ({ navigation, route }) => {
+  const { user } = route?.params
   const { followingData } = useFollowingStore()
   const { feedData, changePlayPause } = useFeedStore()
   const { width, height } = useWindowDimensions()
   const [showModal, setShowModal] = useState(false)
   const [showRecordingComponent, setShowRecordingComponent] = useState(false)
 
-  const gotoCreatePost = () => { navigation.navigate(ScreenNames.CREATE_POST) }
+  const gotoCreatePost = () => { navigation.navigate(ScreenNames.CREATE_POST, {user}) }
   const getNumFollowers = () => {
-    const restOfUsers = Object.keys(followingData)?.filter(el => el !== currentUser)
+    const restOfUsers = Object.keys(followingData)?.filter(el => el !== user)
     let count = 0
     restOfUsers?.forEach(el => {
-      if (followingData[el]?.includes(currentUser)) {
+      if (followingData[el]?.includes(user)) {
         count++
       }
     });
@@ -60,11 +61,13 @@ const Profile = ({ navigation }) => {
   }
   const ListHeaderComponent = () => (
     <View style={{ marginBottom: 20 }}>
-      <Header screenname='Profile Screen' canClick={false} />
+      <Header screenname='Profile Screen' user={user} canClick={false} />
       <Text style={styles.text}>Followers {getNumFollowers()}</Text>
-      <Text style={styles.text}>Following {followingData[currentUser]?.length}</Text>
-      {/* <MyButton title='Create Post' onPress={openModal} style={{ marginTop: 10 }} /> */}
+      <Text style={styles.text}>Following {followingData[user]?.length}</Text>
       <MyButton title='Create Post' onPress={gotoCreatePost} style={{ marginTop: 10 }} />
+      {user !== currentUser ?
+        <Text style={styles.option}>Create Post button is optionally available for non-logged in user so that if you want to experiment</Text>
+        : null}
       {showRecordingComponent ?
         <Recording />
         : null}
@@ -72,7 +75,7 @@ const Profile = ({ navigation }) => {
   )
   return (
     <FlatList
-      data={feedData?.filter(el => el?.userName == currentUser)}
+      data={feedData?.filter(el => el?.userName == user)}
       // numColumns={3}
       contentContainerStyle={styles.container}
       // renderItem={({ item }) => <Item item={item} />}
@@ -113,5 +116,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: '46%',
     bottom: 20
+  },
+  option: {
+    fontSize: 20,
+    color: 'red',
+    fontFamily: getFont('R')
   },
 })
