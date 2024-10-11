@@ -78,7 +78,7 @@ const useFeedStore = create((set) => ({
     console.log('addToFeedData', data);
     const { userName } = data
     let updatedData = [...state.feedData]
-    const maxId = Math.max(...updatedData?.filter(el => el?.userName === userName)?.map(el => Number(el?.id)))
+    const maxId = Math.max(...updatedData?.map(el => Number(el?.id)))
     const dataCopy = { ...data, id: String(maxId + 1) }
     console.log('add to', dataCopy);
     return { feedData: [...state.feedData, dataCopy] }

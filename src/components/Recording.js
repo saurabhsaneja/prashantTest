@@ -5,11 +5,11 @@ import { getFont } from '../helpers';
 import Video from 'react-native-video';
 import { AntDesign, Feather } from '../global/MyIcon';
 
-const CameraComponent = () => {
+const CameraComponent = ({ setVideoPath }) => {
   const camera = useRef(null);
   const [cameraPermission, setCameraPermission] = useState(null);
   const [microphonePermission, setMicrophonePermission] = useState(null);
-  const [videoPath, setVideoPath] = useState();
+  // const [videoPath, setVideoPath] = useState();
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -77,8 +77,8 @@ const CameraComponent = () => {
         style={[styles.camera, styles.photoAndVideoCamera]}
         device={backCamera}
         isActive={true}
-        video={true}
-        audio={true}
+        video={cameraPermission}
+        audio={microphonePermission}
       />
       <View style={styles.btnGroup}>
         <TouchableOpacity disabled={isRecording} style={[styles.btn, isRecording ? { backgroundColor: 'grey' } : null]} onPress={handleRecordVideo}>
@@ -88,18 +88,6 @@ const CameraComponent = () => {
           <Text style={styles.btnText}>Stop Video</Text>
         </TouchableOpacity>
       </View>
-      {videoPath && (
-        <View style={styles.video}>
-          <Video source={{ uri: videoPath }} paused={!isPlaying} onEnd={togglePlayPause} style={styles.video} />
-          <TouchableOpacity onPress={togglePlayPause} style={styles.controlButton}>
-            {isPlaying ?
-              <AntDesign name='pause' color='red' size={20} />
-              :
-              <Feather name='play' color='red' size={20} />
-            }
-          </TouchableOpacity>
-        </View>
-      )}
     </ScrollView>
   );
 };

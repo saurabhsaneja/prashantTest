@@ -8,6 +8,7 @@ import { ScreenNames } from '../global/Index';
 import Feed from '../screens/Feed';
 import Profile from '../screens/Profile';
 import Recording from '../components/Recording';
+import CreatePost from '../screens/CreatePost';
 
 const MainStack = () => {
   //variables
@@ -23,6 +24,7 @@ const MainStack = () => {
       <Stack.Screen name={ScreenNames.FEED} component={Feed} />
       <Stack.Screen name={ScreenNames.PROFILE} component={Profile} />
       <Stack.Screen name={ScreenNames.RECORDING} component={Recording} />
+      <Stack.Screen name={ScreenNames.CREATE_POST} component={CreatePost} />
     </Stack.Navigator>
   );
 };
