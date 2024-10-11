@@ -1,19 +1,22 @@
 import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { currentUser, getFont, getUserImage } from '../helpers'
-import { AntDesign } from '../global/MyIcon'
+import { AntDesign, Feather } from '../global/MyIcon'
 import useFeedStore from '../store/feedStore'
 import Header from '../components/Header'
 import useFollowingStore from '../store/followingStore'
 import { ImageSlider } from '@pembajak/react-native-image-slider-banner';
 import { ScreenNames } from '../global/Index'
+import Video from 'react-native-video'
 
 const Feed = ({ navigation }) => {
   const { width, height } = useWindowDimensions()
-  const { feedData, changeLike } = useFeedStore()
+  const { feedData, changeLike, changePlayPause } = useFeedStore()
   const { followingData, updateFollowing } = useFollowingStore()
   const [imgStyle] = useState({ width: width * 0.8, height: width * 0.8 })
-
+  useEffect(() => {
+    console.log('feedData changed', feedData?.filter(el => el?.userName === 'user2'));
+  }, [feedData])
   const gotoProfile = (userName) => navigation.navigate(ScreenNames.PROFILE, { user: userName })
   // console.log('feedData', feedData);
   const unFollow = (user) => {
@@ -31,6 +34,9 @@ const Feed = ({ navigation }) => {
       }
     ]
     )
+  }
+  const togglePlayPause = (id) => {
+    changePlayPause(id)
   }
   const Item = ({ item }) => {
     // console.log('item', item?.images);
@@ -51,12 +57,24 @@ const Feed = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
-        <ImageSlider
-          data={item?.images?.map(el => ({ img: el }))}
-          autoPlay={true}
-          // onItemChanged={(item) => console.log("item", item)}
-          closeIconColor="#fff"
-        />
+        {item?.video ?
+          <View style={[styles.video, { width: width * 0.92 }]}>
+            <Video source={{ uri: item?.video }} paused={!item?.isPlaying} onEnd={() => togglePlayPause(item?.id)} style={styles.video} />
+            <TouchableOpacity onPress={() => togglePlayPause(item?.id)} style={styles.controlButton}>
+              {item?.isPlaying ?
+                <AntDesign name='pause' color='red' size={20} />
+                :
+                <Feather name='play' color='red' size={20} />
+              }
+            </TouchableOpacity>
+          </View>
+          : item?.images ?
+            <ImageSlider
+              data={item?.images?.map(el => ({ img: el }))}
+              autoPlay={true}
+              // onItemChanged={(item) => console.log("item", item)}
+              closeIconColor="#fff"
+            /> : null}
         <Text style={styles.date}>{item.title}</Text>
         <Text style={styles.date}>{item.desc}</Text>
       </View>
@@ -129,5 +147,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: '#9DD6EB'
+  },
+  video: {
+    height: 260,
+    width: '92%',
+  },
+  controlButton: {
+    position: 'absolute',
+    left: '46%',
+    bottom: 20
   },
 })
