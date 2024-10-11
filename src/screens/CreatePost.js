@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { View, Text, Modal, TouchableOpacity, StyleSheet, TextInput, ScrollView, useWindowDimensions } from 'react-native';
 import { currentUser, getFont, getFormattedCurrentDate, isImage } from '../helpers';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Toast from 'react-native-simple-toast'
@@ -10,8 +10,10 @@ import useFeedStore from '../store/feedStore';
 import Header from '../components/Header'
 import Recording from '../components/Recording'
 import Video from 'react-native-video';
+import { ImageSlider } from '@pembajak/react-native-image-slider-banner';
 
 export default function CreatePost({ navigation }) {
+  const { width, height } = useWindowDimensions()
   const { addToFeedData } = useFeedStore()
   const [title, setTitle] = useState('')
   const [desc, setDesc] = useState('')
@@ -83,7 +85,7 @@ export default function CreatePost({ navigation }) {
     } else if (desc?.trim()?.length === 0) {
       Toast.show('Please enter Description')
       return false
-    } else if (!(typeof media == 'string' || (Array.isArray(media) && media?.length === 0))) {
+    } else if (!(typeof media == 'string' || (Array.isArray(media) && media?.length > 0))) {
       Toast.show('Please select media')
       return false
     }
@@ -156,7 +158,16 @@ export default function CreatePost({ navigation }) {
               }
             </TouchableOpacity>
           </View>
-          : null}
+          :
+          Array.isArray(media) ?
+            <ImageSlider
+              data={media?.map(el => el?.uri)?.map(el => ({ img: el }))}
+              autoPlay={true}
+              // onItemChanged={(item) => console.log("item", item)}
+              closeIconColor="#fff"
+              caroselImageContainerStyle={{ width: (width - 40), height: (width - 40) }}
+            />
+            : null}
       </ScrollView>
       <SelectImageSource
         visible={showImageSourceModal}

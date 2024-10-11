@@ -84,6 +84,8 @@ const useFeedStore = create((set) => ({
   }),
   changePlayPause: (id) => set((state) => {
     let updatedData = [...state.feedData]
+    // stop previously playing video
+    updatedData = updatedData?.map(el => ({ ...el, isPlaying: false }))
     updatedData = updatedData?.map(el => el?.id === id ? { ...el, isPlaying: !el?.isPlaying } : el)
     return { feedData: updatedData }
   }),
