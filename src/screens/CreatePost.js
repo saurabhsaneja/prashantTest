@@ -123,7 +123,7 @@ export default function CreatePost({ navigation, route }) {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Header screenname='Create Post' />
+        <Header screenname='Create Post' user={user} />
         <TextInput
           value={title}
           onChangeText={(t) => setTitle(t)}
