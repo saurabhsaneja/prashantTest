@@ -38,7 +38,7 @@ const Profile = ({ navigation, route }) => {
       <View style={[styles.item, { width: (width - 40) }]}>
         {item?.video ?
           <View style={styles.video}>
-            <Video source={{ uri: item?.video }} paused={!item?.isPlaying} onEnd={() => togglePlayPause(item?.id)} style={styles.video} />
+            <Video source={{ uri: item?.video }} paused={item?.isPlaying === false} onEnd={() => togglePlayPause(item?.id)} style={styles.video} />
             <TouchableOpacity onPress={() => togglePlayPause(item?.id)} style={styles.controlButton}>
               {item?.isPlaying ?
                 <AntDesign name='pause' color='red' size={20} />
@@ -68,7 +68,7 @@ const Profile = ({ navigation, route }) => {
       <Text style={styles.text}>Following {followingData[user]?.length}</Text>
       <MyButton title='Create Post' onPress={gotoCreatePost} style={{ marginTop: 10 }} />
       {user !== currentUser ?
-        <Text style={styles.option}>Create Post button is optionally available for non-logged in user so that if you want to experiment</Text>
+        <Text style={styles.option}>Create Post button is optionally available for non-current user so that if you want to experiment</Text>
         : null}
       {showRecordingComponent ?
         <Recording />

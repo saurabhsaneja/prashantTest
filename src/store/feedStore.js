@@ -84,9 +84,20 @@ const useFeedStore = create((set) => ({
   }),
   changePlayPause: (id) => set((state) => {
     let updatedData = [...state.feedData]
-    // stop previously playing video
-    updatedData = updatedData?.map(el => ({ ...el, isPlaying: false }))
-    updatedData = updatedData?.map(el => el?.id === id ? { ...el, isPlaying: !el?.isPlaying } : el)
+    const wasPlaying = updatedData?.find(el => el?.id === id)?.isPlaying
+    if (wasPlaying) {
+      // stop playing
+      updatedData = updatedData?.map(el => el?.id === id ? { ...el, isPlaying: !el?.isPlaying } : el)
+    } else {
+      // check if some other video was playing, if true pause it
+      const isOtherPlaying = updatedData?.find(el => el?.isPlaying)?.id
+      if (isOtherPlaying) {
+        // stop that video and playing video with id
+        updatedData = updatedData?.map(el => el?.id === isOtherPlaying ? { ...el, isPlaying: !el?.isPlaying } : el)
+      }
+      // play video with id
+      updatedData = updatedData?.map(el => el?.id === id ? { ...el, isPlaying: !el?.isPlaying } : el)
+    }
     return { feedData: updatedData }
   }),
   changeLike: (id) => set((state) => {

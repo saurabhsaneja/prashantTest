@@ -14,9 +14,9 @@ const Feed = ({ navigation }) => {
   const { feedData, changeLike, changePlayPause } = useFeedStore()
   const { followingData, updateFollowing } = useFollowingStore()
   const [imgStyle] = useState({ width: width * 0.8, height: width * 0.8 })
-  useEffect(() => {
-    console.log('feedData changed', feedData?.filter(el => el?.userName === 'user2'));
-  }, [feedData])
+  // useEffect(() => {
+  //   console.log('feedData changed', feedData?.filter(el => el?.userName === 'user2'));
+  // }, [feedData])
   const gotoProfile = (userName) => navigation.navigate(ScreenNames.PROFILE, { user: userName })
   // console.log('feedData', feedData);
   const unFollow = (user) => {
