@@ -59,7 +59,7 @@ const Feed = ({ navigation }) => {
         </View>
         {item?.video ?
           <View style={[styles.video, { width: width * 0.92 }]}>
-            <Video source={{ uri: item?.video }} paused={!item?.isPlaying} onEnd={() => togglePlayPause(item?.id)} style={styles.video} />
+            <Video source={{ uri: item?.video }} paused={item?.isPlaying === false} onEnd={() => togglePlayPause(item?.id)} style={styles.video} />
             <TouchableOpacity onPress={() => togglePlayPause(item?.id)} style={styles.controlButton}>
               {item?.isPlaying ?
                 <AntDesign name='pause' color='red' size={20} />
