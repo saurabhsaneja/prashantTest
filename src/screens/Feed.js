@@ -38,7 +38,7 @@ const Feed = ({ navigation }) => {
   const togglePlayPause = (id) => {
     changePlayPause(id)
   }
-  const Item = ({ item }) => {
+  const Item = React.memo(({ item }) => {
     // console.log('item', item?.images);
     return (
       <View style={styles.item}>
@@ -79,7 +79,7 @@ const Feed = ({ navigation }) => {
         <Text style={styles.date}>{item.desc}</Text>
       </View>
     )
-  }
+  })
   const getUpdatedFeedData = () => {
     // console.log('followingData[currentUser]', followingData[currentUser]);
     const updated = feedData?.filter(el => el?.userName !== currentUser)?.filter(el => followingData[currentUser]?.includes(el?.userName))
@@ -94,6 +94,12 @@ const Feed = ({ navigation }) => {
       renderItem={({ item }) => <Item item={item} />}
       keyExtractor={(item, index) => index}
       ListHeaderComponent={<Header screenname='Feed Screen' />}
+      initialNumToRender={5}
+      maxToRenderPerBatch={10}
+      windowSize={21}
+      // onEndReached={fetchMoreData}
+      // onEndReachedThreshold={0.5} // Adjust based on when to start loading more data
+      removeClippedSubviews={true} // Improves performance by clipping off-screen items
     />
   )
 }

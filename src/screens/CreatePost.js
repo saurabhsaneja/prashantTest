@@ -28,6 +28,7 @@ export default function CreatePost({ navigation, route }) {
   }, [media])
   //function : imp function
   const openLibrary = () => {
+    setShowCamera(false)
     let options = {
       title: 'Select Image',
       customButtons: [
@@ -76,6 +77,7 @@ export default function CreatePost({ navigation, route }) {
   };
   //function : imp function
   const openCamera = () => {
+    setMedia(null)
     setShowCamera(true)
     setShowImageSourceModal(false)
   };
