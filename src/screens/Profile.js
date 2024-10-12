@@ -84,7 +84,12 @@ const Profile = ({ navigation, route }) => {
       renderItem={renderItem}
       keyExtractor={(item, index) => index}
       ListHeaderComponent={ListHeaderComponent}
-    // ListFooterComponent={showModal ? <CreatePost visible={showModal} setVisibility={setShowModal} /> : null}
+      initialNumToRender={5}
+      maxToRenderPerBatch={10}
+      windowSize={21}
+      // onEndReached={fetchMoreData}
+      // onEndReachedThreshold={0.5} // Adjust based on when to start loading more data
+      removeClippedSubviews={true} // Improves performance by clipping off-screen items
     />
   )
 }
